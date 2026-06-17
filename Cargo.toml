@@ -16,3 +16,8 @@ clap = { version = "4", features = ["derive"] }
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3", features = ["utilapiset"] }
+windows = { version = "0.58", features = [
+    "UI_Notifications",
+    "Data_Xml_Dom",
+    "Foundation",
+] }
