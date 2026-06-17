@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+- System tray balloon tip notification on Windows alongside the beep — appears in the bottom-right corner when battery is full
+
+### Changed
+- Replaced Windows toast API (required app registration) with `System.Windows.Forms.NotifyIcon` balloon tip which works on all Windows machines without special permissions
+
+---
+
 ## [0.1.0] - 2026-06-17
 
 ### Added
