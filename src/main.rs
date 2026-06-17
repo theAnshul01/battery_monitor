@@ -62,12 +62,8 @@ fn check_battery(manager: &Manager, threshold: f32) -> Result<bool, battery::Err
 fn notify() {
     #[cfg(windows)]
     {
-        // Show toast banner
-        if let Err(e) = show_toast() {
-            eprintln!("Toast notification failed: {}", e);
-        }
+        show_balloon();
 
-        // Beep alongside the banner
         for _ in 0..5 {
             unsafe {
                 winapi::um::utilapiset::Beep(1000, 400);
@@ -88,28 +84,21 @@ fn notify() {
 }
 
 #[cfg(windows)]
-fn show_toast() -> windows::core::Result<()> {
-    use windows::Data::Xml::Dom::XmlDocument;
-    use windows::UI::Notifications::{ToastNotification, ToastNotificationManager};
+fn show_balloon() {
+    let script = r#"
+Add-Type -AssemblyName System.Windows.Forms
+$balloon = New-Object System.Windows.Forms.NotifyIcon
+$balloon.Icon = [System.Drawing.SystemIcons]::Information
+$balloon.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Info
+$balloon.BalloonTipTitle = 'Battery Full'
+$balloon.BalloonTipText = 'Your battery is fully charged - unplug the charger!'
+$balloon.Visible = $true
+$balloon.ShowBalloonTip(5000)
+Start-Sleep -Seconds 5
+$balloon.Dispose()
+"#;
 
-    let xml = XmlDocument::new()?;
-    xml.LoadXml(&windows::core::HSTRING::from(
-        r#"<toast>
-            <visual>
-                <binding template="ToastGeneric">
-                    <text>🔋 Battery Full</text>
-                    <text>Your battery is fully charged — unplug the charger!</text>
-                </binding>
-            </visual>
-        </toast>"#,
-    ))?;
-
-    let toast = ToastNotification::CreateToastNotification(&xml)?;
-    let notifier =
-        ToastNotificationManager::CreateToastNotifierWithId(&windows::core::HSTRING::from(
-            "battery_monitor",
-        ))?;
-    notifier.Show(&toast)?;
-
-    Ok(())
+    let _ = std::process::Command::new("powershell")
+        .args(["-NoProfile", "-WindowStyle", "Hidden", "-Command", script])
+        .spawn();
 }
