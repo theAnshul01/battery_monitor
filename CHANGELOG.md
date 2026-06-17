@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [0.2.0] - 2026-06-17
 
 ### Added
 - System tray balloon tip notification on Windows alongside the beep — appears in the bottom-right corner when battery is full
