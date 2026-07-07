@@ -14,7 +14,7 @@ Thank you for considering contributing to `battery_monitor`! Any improvement —
 ### Setup
 
 ```sh
-git clone https://github.com/AnshulOP/battery_monitor
+git clone https://github.com/theAnshul01/battery_monitor
 cd battery_monitor
 cargo build
 ```
@@ -25,7 +25,7 @@ cargo build
 
 ### Reporting a Bug
 
-Open an [issue](https://github.com/AnshulOP/battery_monitor/issues) and include:
+Open an [issue](https://github.com/theAnshul01/battery_monitor/issues) and include:
 
 - Your OS and version
 - Output of `battery_monitor --version`

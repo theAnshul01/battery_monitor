@@ -35,7 +35,7 @@ This compiles and installs the binary to `~/.cargo/bin/`, making `battery_monito
 
 ### Option 2 — Pre-built binary (no Rust required)
 
-Download the binary for your platform from the [Releases](https://github.com/AnshulOP/battery_monitor/releases) page:
+Download the binary for your platform from the [Releases](https://github.com/theAnshul01/battery_monitor/releases) page:
 
 | Platform | File |
 |----------|------|
@@ -156,7 +156,7 @@ Use a `launchd` plist triggered by `IOPSNotificationCreateRunLoopSource` or wrap
 ## Building from Source
 
 ```sh
-git clone https://github.com/AnshulOP/battery_monitor
+git clone https://github.com/theAnshul01/battery_monitor
 cd battery_monitor
 cargo build --release
 ```

@@ -1,11 +1,11 @@
 [package]
 name = "battery_monitor"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 description = "Monitors battery charge and beeps when fully charged so you can unplug. Also supports optional water and movement reminders."
 license = "MIT"
-repository = "https://github.com/AnshulOP/battery_monitor"
-homepage = "https://github.com/AnshulOP/battery_monitor"
+repository = "https://github.com/theAnshul01/battery_monitor"
+homepage = "https://github.com/theAnshul01/battery_monitor"
 keywords = ["battery", "monitor", "notification", "cli", "laptop"]
 categories = ["command-line-utilities"]
 readme = "README.md"
