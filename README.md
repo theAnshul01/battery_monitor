@@ -16,6 +16,8 @@ Keeping your laptop plugged in at 100% for extended periods degrades battery hea
 - Beeps audibly when battery reaches the configured threshold
 - Keeps notifying every 60 seconds until you unplug
 - Configurable poll interval and charge threshold via CLI flags
+- Optional water-drinking reminders on a configurable interval
+- Optional movement reminders to break up long sitting sessions
 - Works on Windows, Linux, and macOS
 - Tiny binary, near-zero CPU and memory usage
 
@@ -79,10 +81,14 @@ Charge: 87.3%  State: Charging
 Usage: battery_monitor [OPTIONS]
 
 Options:
-  -i, --interval <INTERVAL>    How often to check battery level, in seconds [default: 30]
-  -t, --threshold <THRESHOLD>  Charge percentage to treat as full (0–100) [default: 99]
-  -h, --help                   Print help
-  -V, --version                Print version
+  -i, --interval <INTERVAL>              How often to check battery level, in seconds [default: 30]
+  -t, --threshold <THRESHOLD>            Charge percentage to treat as full (0–100) [default: 99]
+      --remind-water                     Enable water-drinking reminders
+      --water-interval <WATER_INTERVAL>  Minutes between water reminders [default: 60]
+      --remind-movement                  Enable reminders to get up and move after long sitting
+      --movement-interval <MOVEMENT_INTERVAL>  Minutes between movement reminders [default: 45]
+  -h, --help                             Print help
+  -V, --version                          Print version
 ```
 
 ### Examples
@@ -96,6 +102,18 @@ Aggressive polling, notify only at true 100%:
 ```sh
 battery_monitor -i 10 -t 100
 ```
+
+Add hydration and movement reminders on top of the default battery monitoring:
+```sh
+battery_monitor --remind-water --remind-movement
+```
+
+Custom reminder intervals — water every 45 minutes, movement every 30 minutes:
+```sh
+battery_monitor --remind-water --water-interval 45 --remind-movement --movement-interval 30
+```
+
+Both reminders are opt-in and disabled unless their `--remind-*` flag is passed. They run independently of the battery check and show a balloon notification (with a short beep on Windows) when due.
 
 ---
 
@@ -150,6 +168,7 @@ Binary will be at `target/release/battery_monitor` (or `.exe` on Windows).
 ## Future Scope
 
 - **Desktop notifications** — Show a native OS popup (toast on Windows, libnotify on Linux, osascript on macOS) alongside the beep, so you get notified even when the terminal is minimized
+- **Reminder notifications on Linux/macOS** — Water and movement reminders currently fall back to a terminal beep on non-Windows platforms; native `libnotify`/`osascript` popups would match the Windows balloon experience
 - **System tray icon** — Run silently in the system tray with a live battery percentage, removing the need for an open terminal window entirely
 - **Auto-start on AC connect** — Built-in `--install` flag that registers the Task Scheduler / udev / launchd entry automatically, no manual setup required
 - **Charge limiter mode** — A `--max` flag that also notifies when charging *starts* if battery is already above a set level (e.g. 80%), helping users who follow partial-charge habits for longevity

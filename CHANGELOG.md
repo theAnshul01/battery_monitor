@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] - 2026-07-07
+
+### Added
+- Opt-in water-drinking reminders (`--remind-water`, `--water-interval <MIN>`, default 60 min) — shows a balloon notification with a short beep
+- Opt-in movement reminders to break up long sitting sessions (`--remind-movement`, `--movement-interval <MIN>`, default 45 min)
+- Both reminders run independently of the battery-check loop and are disabled by default
+
+---
+
 ## [0.2.0] - 2026-06-17
 
 ### Added
